@@ -27,9 +27,9 @@ Download [the pretrained models](http://www.cgg.cs.tsukuba.ac.jp/~endo/projects/
 ```
 python test.py --gpu 0 -i ./inputs/1.png -o ./outputs  
 ```
-Three videos (looped motion, flow field, and final result) are generated in the output directory. Output videos change according to latent codes randomly sampled every you run the code.   
+Three videos (looped motion, flow field, and final result) are generated in the output directory. Output videos might differ according to latent codes randomly sampled every time you run the code.   
 
-You can also manually specify latent codes from the pre-trained codebook using simple scalar values for motion (-mz) and appearance (-az) in [0,1], for example,   
+You can also specify latent codes manually from the pre-trained codebook using simple scalar values for motion (-mz) and appearance (-az) in [0,1], for example,   
 ```
 python test.py --gpu 0 -i ./inputs/1.png -o ./outputs -mz 0.9 -az 0.1  
 ```
