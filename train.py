@@ -24,6 +24,7 @@ class TrainAnimatingLandscape():
         print("The number of training video clips:", len(self.dir_list))
         self.saved_epoch = int(args.save_epoch_freq)
         self.max_epoch = int(args.max_epoch)
+        self.learning_rate = args.learning_rate
         
         self.lambda_tvm = float(args.lambda_tvm)
         self.lambda_p = float(args.lambda_pm)
@@ -45,18 +46,18 @@ class TrainAnimatingLandscape():
         model_E = define_E(2,self.nz,64,which_model_netE='resnet_128')
         if self.gpu>-1:
             model_E.cuda(self.gpu)
-        optimizer_E = Adam(model_E.parameters(),  lr=1e-4, betas=(0.5, 0.999))   
+        optimizer_E = Adam(model_E.parameters(),  lr=self.learning_rate, betas=(0.5, 0.999))   
     
-        model_P = ConditionalMotionNet(self.nz, 2, 1./64.)
+        model_P = ConditionalMotionNet(self.nz)
         if self.gpu>-1:
             model_P.cuda(self.gpu)
-        optimizer_P = Adam(model_P.parameters(), lr=1e-4, betas=(0.5, 0.999))
+        optimizer_P = Adam(model_P.parameters(), lr=self.learning_rate, betas=(0.5, 0.999))
             
         if self.lambda_WAE > 0.:
             model_WAE_D = Discriminator()
             if self.gpu>-1:
                 model_WAE_D.cuda(self.gpu)
-            optimizer_WAE_D = Adam(model_WAE_D.parameters(),lr=1e-4*0.1)
+            optimizer_WAE_D = Adam(model_WAE_D.parameters(),lr=self.learning_rate*0.1)
     
         initial_flow = np.array([np.meshgrid(np.linspace(-1,1,self.w/1), np.linspace(-1,1,self.h/1), sparse=False)]).astype(np.float32)
         initial_flow = Variable(torch.from_numpy(initial_flow))
@@ -183,7 +184,7 @@ class TrainAnimatingLandscape():
         model_E = define_E(3,self.nz,64,which_model_netE='resnet_128')
         if self.gpu>-1:
             model_E.cuda(self.gpu)
-        optimizer_E = Adam(model_E.parameters(),  lr=1e-4, betas=(0.5, 0.999))
+        optimizer_E = Adam(model_E.parameters(),  lr=self.learning_rate, betas=(0.5, 0.999))
         vgg = Vgg16()
         vgg.load_state_dict(torch.load(os.path.join("./models", "vgg16_weight.pth")))
         if self.gpu>-1:
@@ -191,14 +192,14 @@ class TrainAnimatingLandscape():
         model_P = ConditionalAppearanceNet(self.nz)
         if self.gpu>-1:
             model_P.cuda(self.gpu)
-        optimizer_P = Adam(model_P.parameters(), lr=1e-4, betas=(0.5, 0.999))
+        optimizer_P = Adam(model_P.parameters(), lr=self.learning_rate, betas=(0.5, 0.999))
         Gram = GramMatrix()
         
         if self.lambda_WAE > 0.:
             model_WAE_D = Discriminator()
             if self.gpu>-1:
                 model_WAE_D.cuda(self.gpu)
-            optimizer_WAE_D = Adam(model_WAE_D.parameters(),lr=1e-4*0.5)   
+            optimizer_WAE_D = Adam(model_WAE_D.parameters(),lr=self.learning_rate*0.1)
     
         for epoch in range(1,self.max_epoch+1):
             batch_loss = 0.
@@ -354,6 +355,7 @@ if __name__ == '__main__':
     parser.add_argument('--lambda_wae', default=0.)
     parser.add_argument('--save_epoch_freq', default=100)
     parser.add_argument('--max_epoch', default=5000)
+    parser.add_argument('--learning_rate', default=1e-4)
     parser.add_argument('--batch_size', default=1)
     parser.add_argument('--nz', default=8)
     parser.add_argument('--image_size', default=256)

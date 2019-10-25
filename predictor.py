@@ -10,7 +10,7 @@ class ConditionalMotionNet(torch.nn.Module):
         super(ConditionalMotionNet, self).__init__()
         c_num = 128
          
-        # Initial convolution layers
+        # Downsampling layers
         self.conv1 = ConvLayer(3+nz, c_num, kernel_size=5, stride=2)
         self.conv2 = ConvLayer(c_num+nz, c_num*2, kernel_size=3, stride=2)
         self.in2 = InstanceNormalization(c_num*2)

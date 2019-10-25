@@ -15,7 +15,7 @@ This repository contains source codes of the following paper:
 
 ## Dependencies  
 1. Python (we used version 2.7.12)  
-2. Pytorch (we used version 0.4.0)  
+2. PyTorch (we used version 0.4.0)  
 3. OpenCV (we used version 2.4.13)  
 4. scikit-learn (we used version 0.19.0)
 
@@ -42,6 +42,20 @@ python train.py --gpu 0 --indir ./training_data/motion --mode motion
 Trained models are saved in the models directory.   
 
 Fore more optional arguments, run each code with --help option.   
+
+## Citation
+Please cite our paper if you found the code useful:
+```
+@article{endo2019animatinglandscape,
+  title = {Animating Landscape: Self-Supervised Learning of Decoupled Motion and Appearance for Single-Image Video Synthesis},
+  author = {Yuki Endo and Yoshihiro Kanamori and Shigeru Kuriyama},
+  journal = {ACM Transactions on Graphics (Proceedings of ACM SIGGRAPH Asia 2019)},
+  year = {2019},
+  volume = 38,
+  number = 6,
+  pages = {175:1--175:19}
+}
+```
 
 ## Acknowledgements
 This code borrows the encoder code from [BicycleGAN](https://github.com/junyanz/BicycleGAN) and the Instance Normalization code from [fast-neural-style](https://github.com/abhiskk/fast-neural-style). 
