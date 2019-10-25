@@ -23,7 +23,7 @@ The other dependencies for the above libraries are also needed. It might work wi
 
 ## Animating landscape image
   
-Download [the pretrained models](http://www.cgg.cs.tsukuba.ac.jp/~endo/projects/AnimatingLandscape/) and put them into the models directory and run test.py by specifying an input image and an output directory, for example, 
+Download [the pretrained models](http://www.cgg.cs.tsukuba.ac.jp/~endo/projects/AnimatingLandscape/)([mirror](https://drive.google.com/file/d/1SZCygpJOqLFdJR4fejqIU3GRyVCBYGue/view?usp=sharing)), put them into the models directory, and run test.py by specifying an input image and an output directory, for example, 
 ```
 python test.py --gpu 0 -i ./inputs/1.png -o ./outputs  
 ```

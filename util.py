@@ -25,14 +25,11 @@ def generateLoop(f_list, nb_loop=1):
             t-=1./nb_fadeframe
         w = 1.-(1.-t**1.)**1.
         if i>N-nb_fadeframe:
-            #print i, i-N+nb_fadeframe-1
             img_list[i-N+nb_fadeframe-1] += w*img
             wsum_list[i-N+nb_fadeframe-1] += w
         else:
-            #print i, i
             img_list[i] += w*img
             wsum_list[i] += w
-        #print t, w
     
     V_mloop = list()
     for loop in range(nb_loop):
